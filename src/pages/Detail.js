@@ -1,14 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
+//  리덕스 스토어에있는 데이터 가져온다
+import {useSelector, useDispatch} from "react-redux";
+
 const Detail = (props) => {
     const { history } = props;
+    const contents_list = useSelector(state => state.post.list);
+    // const {comment, no, title,author} = props;
+    console.log(contents_list, props);
+    // url의 자동으로 string으로 오는 no 숫자로 바꿔주기 
+    const list_no = parseInt(props.match.params.no);
+
     return (
         <React.Fragment>
             <Container>
-                <Title>글 제목</Title>
-                <User>글쓴이</User>
-                <Content>글내용</Content>
+                <Title>글 제목: {contents_list[list_no-1].title}</Title>
+                <User>글쓴이: {contents_list[list_no-1].author}</User>
+                <Content>글 내용: {contents_list[list_no-1].comment}</Content>
                 <button onClick={() => {
                     history.push('/');
                 }}>돌아가기</button>

@@ -5,16 +5,22 @@ const CREATE = "post/CREATE"; // 데이터 추가하기
 // Initial State
 const initialState = {
     list: [{
-        content_num: 1,
-        content_user: "고영희",
-        content_title: '나는 댕댕이다!',
-        content_content: '내이름은 고영희 귀여운 댕댕이지'
+        no: 1,
+        author: "고영희",
+        title: '나는 댕댕이다',
+        comment: '내이름은 고영희 귀여운 댕댕이지'
     },
     {
-        content_num: 2,
-        content_user: "아무말",
-        content_title: '나는 무말이다',
-        content_content: '귀여운 계란말이지'
+        no: 2,
+        author: "아무말",
+        title: '나는 무말이다',
+        comment: '잘생긴 계란말이지'
+    },
+    {
+        no: 3,
+        author: "날씨좋",
+        title: '오늘도 날씨 짱',
+        comment: '아 나가고싶다 인생이란 뭘까아 나가고싶다 인생이란 뭘까아 나가고싶다 인생이란 뭘까아 나가고싶다 인생이란 뭘까아 나가고싶다 인생이란 뭘까아 나가고싶다 인생이란 뭘까아 나가고싶다 인생이란 뭘까'
     }]
 };
 

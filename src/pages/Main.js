@@ -9,7 +9,6 @@ const Main = (props) => {
 
     return (
         <React.Fragment>
-            EDC KOREA 2021 Early-Bird Tickets Available!
             <QnA />
             <Button />
         </React.Fragment>
