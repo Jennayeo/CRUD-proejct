@@ -3,24 +3,43 @@ import styled from "styled-components";
 
 //  리덕스 스토어에있는 데이터 가져온다
 import {useSelector, useDispatch} from "react-redux";
+import {actionCreators as postActions} from "../redux/modules/post"
+
 
 const Detail = (props) => {
     const { history } = props;
     const contents_list = useSelector(state => state.post.list);
+    console.log(props);
     // const {comment, no, title,author} = props;
+    const dispatch = useDispatch();
+    const post_id = props.match.params.id;
+    const delPost = () => {
+        console.log(post_id);
+        dispatch(postActions.delPostDB(post_id))
+    }
+    const editPost = () => {
+        console.log(post_id);
+        dispatch(postActions.editPostDB(post_id))
+    }
     console.log(contents_list, props);
     // url의 자동으로 string으로 오는 no 숫자로 바꿔주기 
-    const list_no = parseInt(props.match.params.no);
+    // const list_id = contents_list.findIndex( (p) => p._id === post_id );
+    const list_id = contents_list.findIndex( (p) => p._id === props.match.params.id );
+        console.log(list_id)
 
     return (
         <React.Fragment>
             <Container>
-                <Title>글 제목: {contents_list[list_no-1].title}</Title>
-                <User>글쓴이: {contents_list[list_no-1].author}</User>
-                <Content>글 내용: {contents_list[list_no-1].comment}</Content>
+                <Title>글 제목: {contents_list[list_id].title}</Title>
+                <User>글쓴이: {contents_list[list_id].author}</User>
+                <Content>글 내용: {contents_list[list_id].comment}</Content>
                 <button onClick={() => {
                     history.push('/');
                 }}>돌아가기</button>
+                <button onClick={delPost
+                    }>삭제하기</button>
+                <button onClick={editPost
+                }>수정하기</button>
             </Container>
         </React.Fragment>
     );

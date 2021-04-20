@@ -1,37 +1,76 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {useSelector, useDispatch} from "react-redux";
+import post, {actionCreators} from "../redux/modules/post";
 import { Input } from "@material-ui/core";
+import {actionCreators as postActions} from "../redux/modules/post"
+
 
 const AddPost = (props) => {
-    // const post_list = useSelector(state => state.post.list);
+    // const [title, setTitle] = useState(post.word); //초기값으로 _post.word값 설정
+    // const [author, setAuthor] = useState(_post? _post.description : "");
+    // const [comment, setComment] = useState(_post? _post.example : "");
+
     const {history} = props;
+    const dispatch = useDispatch();
+
 
     // 포스트 추가 기능
-    const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState("");
-    const [comment, setComment] = useState("");
+    const [content, setContent] = useState({
+        author: '',
+        title: '',
+        comment: ''
+    })
+
+    // const [viewContent, setViewContent] = useState([]);
+
+    // 이부분 주석처리함
+    // const [title, setTitle] = useState("");
+    // const [author, setAuthor] = useState("");
+    // const [comment, setComment] = useState("");
+
     // const [contents, setContents] = React.useState("");
     // 포스트 추가 함수 만들기
     // const changeContents = (e) => {
     //     setContents(e.target.value);
     // }
     // console.log(contents);
-    const newTitle = (e) => {
-        setTitle(e.target.value);
-    }
-    const newAuthor = (e) => {
-        setAuthor(e.target.value);
-    }
-    const newComment = (e) => {
-        setComment(e.target.value);
-    }
-    console.log(title,author,comment);
+
+    // 함수 생성
+    const getValue = e => {
+        const { name, value } = e.target;
+        setContent({
+            ...content,
+            [name]:value
+        })
+        // console.log(content);
+    };
+
+    useEffect(()=>{
+        console.log(content)
+    },[content])
+    // 이부분 주석처리함
+    // const newTitle = (e) => {
+    //     setTitle(e.target.value);
+    // }
+    // const newAuthor = (e) => {
+    //     setAuthor(e.target.value);
+    // }
+    // const newComment = (e) => {
+    //     setComment(e.target.value);
+    // }
+    // console.log(title,author,comment);
+
     // const setPost = () => {
-    //     if(!word || !description || !example){
+    //     if(!title || !author || !comment){
     //       window.alert("모두 입력해주세요");
     //       return;
     //     }
+
+    //     dispatch(postActions.addPost(title, author, comment));
+    //         console.log("정상");
+    // };
+
     return (
         <React.Fragment>
                 <InputBox
@@ -39,27 +78,30 @@ const AddPost = (props) => {
                     // _onChange = {(e) =>{
                     //     console.log("제목추가");
                     //     newTitle(e.target.value);}}
-                    onChange={newTitle}
-                    value={title}
-                    label="title"
+                    onChange={getValue}
+                    // value={title}
+                    name="title"
                     placeholder="제목을 입력하세요"
                     // value={}
                 />
                 <InputBox
-                    onChange = {newAuthor}
-                    value={author}
-                    label="author"
+                    onChange = {getValue}
+                    // value={author}
+                    name="author"
                     placeholder="작성자를 입력하세요"
                     // value={}
                 />
             <Contents
-                onChange = {newComment}
-                value={comment}
-                label="comment"
+                onChange = {getValue}
+                // value={comment}
+                name="comment"
                 placeholder="내용을 입력하세요"
                 // value={}
             />
-            <button>글쓰기</button>
+            <button
+            onClick={() => {
+                dispatch(postActions.addPostDB(content.title,content.author,content.comment))
+            }}>글쓰기</button>
         </React.Fragment>
     )
 }

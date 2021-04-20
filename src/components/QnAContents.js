@@ -7,8 +7,9 @@ import {useSelector, useDispatch} from "react-redux";
 
  const QnAContents = (props) => {
     // 훅 import후 변수선언
-    const {comment, no, title,author} = props;
-    
+    const {comment, no, _id, title,author} = props;
+    // props로 api의 데이터가 받아와진다 ???
+
     return (
         <React.Fragment>
                     {/* <Table>
@@ -16,7 +17,7 @@ import {useSelector, useDispatch} from "react-redux";
                         
                             <tr
                             onClick={() => 
-                                history.push('/detail/'+no)}>
+                                history.push('/detail/'+_id)}>
                                 <th>{no}</th>
                                 <td>{author}</td>
                                 <td>{title}</td>
