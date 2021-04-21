@@ -10,17 +10,30 @@ const AddPost = (props) => {
     // const [title, setTitle] = useState(post.word); //초기값으로 _post.word값 설정
     // const [author, setAuthor] = useState(_post? _post.description : "");
     // const [comment, setComment] = useState(_post? _post.example : "");
+    const post_list = useSelector(state => state.post.list);
 
+    // 수정 페이지
+    const post_id = props.match.params.id;
+    // post_id가 있다면 true, 없다면 false
+    const is_edit = post_id? true : false;
+
+    // 수정모드니? p.id가 포스트 아이디와 똑같은지 찾아, 수정모드가 아닌 작성모드라면 null
+    let _post = is_edit? post_list.find((p) => p.id === post_id) : null;
+
+    const [content, setContent] = React.useState(_post? _post.title : ""); //초기값으로 _post.word값 설정
+    // const [author, setDesc] = React.useState(_post? _post.author : "");
+    // const [comment, setExam] = React.useState(_post? _post.comment : "");
+    console.log('edit_title!!!!',_post.title)
     const {history} = props;
     const dispatch = useDispatch();
 
 
     // 포스트 추가 기능
-    const [content, setContent] = useState({
-        author: '',
-        title: '',
-        comment: ''
-    })
+    // const [content, setContent] = useState({
+    //     author: '',
+    //     title: '',
+    //     comment: ''
+    // })
 
     // const [viewContent, setViewContent] = useState([]);
 
@@ -70,6 +83,11 @@ const AddPost = (props) => {
     //     dispatch(postActions.addPost(title, author, comment));
     //         console.log("정상");
     // };
+
+    const editPost = () => {
+        console.log(post_id);
+        dispatch(postActions.editPostDB(post_id, contents_list[list_id].title, contents_list[list_id].comment))
+    }
 
     return (
         <React.Fragment>

@@ -21,6 +21,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Main}/>
           <Route exact path="/addpost" component={AddPost}/>
+          <Route exact path="/addpost/:id" component={AddPost}/>
           <Route exact path="/detail/:id" component={Detail}/>
         </Switch>
       </ConnectedRouter>

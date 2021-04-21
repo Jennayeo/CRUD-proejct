@@ -7,7 +7,7 @@ import { produce } from "immer";
 // 액션 생성
 const LOAD = "post/LOAD"; // 처음 화면 리스트 로드 // 모듈명(소문자)/액션명(대문자)
 const ADD_POST = "post/ADD_POST"; // 데이터 추가하기
-const DEL_POST = "post/DEL_POST"; // 그냥 DEL_POST하나만 적으면 되는거 아닌가..
+const DEL_POST = "post/DEL_POST"; // post = 모듈명 // DEL_POST = 액션명
 const EDIT_POST = "post/EDIT_POST";// 수정
 
 // 액션 생성 함수 -> 컴포넌트들에서 불러와야하기때문에 export
@@ -107,12 +107,12 @@ const delPostDB = (post_id) => {
 // };
 
 // 데이터 수정하기
-const editPostDB = (title, author, comment) => {
+const editPostDB = (title, post_id, comment) => {
   return function (dispatch, getState, {history}) {
     let formData = new FormData();
 
     formData.append("title", title);
-    formData.append("author", author);
+    formData.append("objid", post_id);
     formData.append("comment", comment);
 
     axios({
@@ -120,9 +120,9 @@ const editPostDB = (title, author, comment) => {
       url: "http://spartacodingclub.shop/hh99/board/update",
     })
       .then((res) => {
-        window.location.replace('/') // 콜백함수
-        // let post_id = [...res.data];
-        // dispatch(delPost(post_id));
+        // window.location.replace('/') // 콜백함수
+        let post_id = [...res.data];
+        dispatch(editPost(post_id));
       })
       .catch((e) => console.log(e));
   };
