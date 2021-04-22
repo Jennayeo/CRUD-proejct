@@ -10,7 +10,6 @@ const Main = (props) => {
     return (
         <React.Fragment>
             <QnA />
-            <Button />
         </React.Fragment>
     )
 }

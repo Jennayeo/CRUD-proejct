@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 // import {Route} from "react-router-dom";
 // import Detail from './pages/Detail';
-
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { withRouter } from 'react-router-dom';
 // 리덕스 훅 useSelector사용하여 데이터 리덕스에서 바로 가져오기
 import {useSelector, useDispatch} from "react-redux";
@@ -12,6 +12,7 @@ import QnAContents from "./QnAContents";
 import {actionCreators as postActions} from "../redux/modules/post"
 
 import { history } from "../redux/configStore";
+// import Button from "../elements/Button";
 
 
  const QnA = (props) => {
@@ -30,6 +31,8 @@ import { history } from "../redux/configStore";
     const { history } = props;
     return (
         <React.Fragment>
+            <Background>
+                <Container>
                     <Table>
                         <Thead>
                             <tr>
@@ -46,29 +49,43 @@ import { history } from "../redux/configStore";
                             ))}
                         </Tbody>
                     </Table>
-                    <Button onClick={() => 
-                            history.push('/addpost')}> 추가하기 </Button>
-                                
-                       
+                </Container>   
+                    <AddCircleIcon fontSize="large" position="fixed" margin="100" onClick={() => 
+                            history.push('/addpost')}> 추가하기 </AddCircleIcon>
+            </Background>     
         </React.Fragment>);}
-                       
+            
+const Background = styled.div`
+    height: 100%;
+    background-color: pink;
+    padding: 80px 0px;
+`;
+
+const Container = styled.div`
+    margin: 100px 100px;
+    // border: 1px solid;
+    border-radius: 50px;
+    background-color: white;
+`;
 
 
 const Table = styled.table`
     border-collapse: collapse;
     border-spacing: 0;
     width: 80%;
+    height: 80%;
     margin: auto;
 `;
 
 const Thead = styled.thead`
-    border-top: 1px solid #dee2e6;
+    // border-top: 1px solid #dee2e6;
     border-bottom: 2px solid #dee2e6;
     & th {
         padding: .75rem;}
 
 
 `;
+
 
 const Tbody = styled.tbody`
     border-bottom: 1px solid #dee2e6;
@@ -81,9 +98,7 @@ const Tbody = styled.tbody`
       }
 `;
 
-const Button = styled.button`
 
-`;
 
 const ContentUser = styled.tbody`
 

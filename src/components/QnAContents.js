@@ -12,9 +12,6 @@ import {useSelector, useDispatch} from "react-redux";
 
     return (
         <React.Fragment>
-                    {/* <Table>
-                        <Tbody> */}
-                        
                             <tr
                             onClick={() => 
                                 history.push('/detail/'+_id)}>
@@ -22,19 +19,10 @@ import {useSelector, useDispatch} from "react-redux";
                                 <td>{author}</td>
                                 <td>{title}</td>
                             </tr>
-                        {/* </Tbody>
-                    </Table> */}
                                 
         </React.Fragment>);}
                         
 
-
-const Table = styled.table`
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 80%;
-    margin: auto;
-`;
 
 const Thead = styled.thead`
     border-top: 1px solid #dee2e6;

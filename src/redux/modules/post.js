@@ -32,6 +32,7 @@ const initialState = {
 // axios
 
 // 데이터 불러오기
+// 데이터 불러와서 리덕스에 넣어주는 함수
 const getPostDB = () => {
   return function (dispatch) {
     // dispatch(loadPost(true));
@@ -108,21 +109,22 @@ const delPostDB = (post_id) => {
 
 // 데이터 수정하기
 const editPostDB = (title, post_id, comment) => {
+  console.log('수정',title, post_id, comment)
   return function (dispatch, getState, {history}) {
     let formData = new FormData();
-
     formData.append("title", title);
     formData.append("objid", post_id);
     formData.append("comment", comment);
-
     axios({
       method: "post",
       url: "http://spartacodingclub.shop/hh99/board/update",
+      data:formData
     })
       .then((res) => {
-        // window.location.replace('/') // 콜백함수
-        let post_id = [...res.data];
-        dispatch(editPost(post_id));
+      window.alert(res.data.msg)
+        window.location.replace('/') // 콜백함수
+        // let post_id = [...res.data];
+        // dispatch(editPost(post_id));
       })
       .catch((e) => console.log(e));
   };
