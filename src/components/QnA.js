@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 // import {Route} from "react-router-dom";
 // import Detail from './pages/Detail';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+// import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { withRouter } from 'react-router-dom';
 // 리덕스 훅 useSelector사용하여 데이터 리덕스에서 바로 가져오기
 import {useSelector, useDispatch} from "react-redux";
@@ -50,8 +50,8 @@ import { history } from "../redux/configStore";
                         </Tbody>
                     </Table>
                 </Container>   
-                    <AddCircleIcon fontSize="large" position="fixed" margin="100" onClick={() => 
-                            history.push('/addpost')}> 추가하기 </AddCircleIcon>
+                    <AddButton fontSize="large" position="fixed" margin="100" onClick={() => 
+                            history.push('/addpost')}> + </AddButton>
             </Background>     
         </React.Fragment>);}
             
@@ -67,7 +67,31 @@ const Container = styled.div`
     border-radius: 50px;
     background-color: white;
 `;
-
+const AddButton = styled.button`
+//   width: 50px;
+//   height: 50px;
+//   background-color: #212121;
+//   color: #ffffff;
+//   padding: 12px 0px;
+//   box-sizing: border-box;
+//   border: solid 1px black;
+//   border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  background-color: #212121;
+  color: #ffffff;
+  box-sizing: border-box;
+  font-size: 36px;
+  font-weight: 800;
+  position: fixed;
+  bottom: 50px;
+  right: 16px;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+`;
 
 const Table = styled.table`
     border-collapse: collapse;
@@ -82,8 +106,6 @@ const Thead = styled.thead`
     border-bottom: 2px solid #dee2e6;
     & th {
         padding: .75rem;}
-
-
 `;
 
 

@@ -9,6 +9,7 @@ const LOAD = "post/LOAD"; // 처음 화면 리스트 로드 // 모듈명(소문�
 const ADD_POST = "post/ADD_POST"; // 데이터 추가하기
 const DEL_POST = "post/DEL_POST"; // post = 모듈명 // DEL_POST = 액션명
 const EDIT_POST = "post/EDIT_POST";// 수정
+// const LOADING = "LOADING"; // 무한 스크롤 구현
 
 // 액션 생성 함수 -> 컴포넌트들에서 불러와야하기때문에 export
 const loadPost = createAction(LOAD, (post_list) => ({ post_list }));
@@ -19,34 +20,57 @@ const addPost = createAction(ADD_POST, (post_list) => ({ post_list }));
 const delPost = createAction(DEL_POST, (post_id) => ({post_id}));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({post_id, post}))
 // post = 수정할 내용물
+// const loading = createAction(LOADING, (is_loading) => ({is_loading}));
 
 // Initial State
 const initialState = {
-  list: []
+  list: [],
+  // 무한 스크롤 구현
+  // paging: {start: null, next: null, size: 3},
+  // is_loading: false,
+  items: 5,
+  preItems: 0,
 };
 
 // componentDidMount (){
 //     axios.get("http://spartacodingclub.shop/hh99/board/list");
 // }
 
-// axios
 
+// axios
 // 데이터 불러오기
 // 데이터 불러와서 리덕스에 넣어주는 함수
 const getPostDB = () => {
+
+  // pagination
+  // const [posts, setPosts] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [currentPage, setCurrentPage] = sueState(1);
+  // const [postsPerPage, setPso]
   return function (dispatch) {
     // dispatch(loadPost(true));
+    // 무한 스크롤 is_loading을 true로 바꿔주기
+    // dispatch(loading(true));
     axios({
       method: "get",
       url: "http://spartacodingclub.shop/hh99/board/list",
+      // params: { q: query, page: pageNumber }
     })
       .then((res) => {
         console.log(res.data.articles);
         dispatch(loadPost(res.data.articles));
+        // let result = res.data.articles.slice(-5)
+        // 리스트의 앞 번호 5개만 가져옴
+        // console.log(result)
       })
       .catch((e) => console.log(e));
   };
 };
+
+// pagination
+// const indexOfLastPost = currentPage * postsPerPage;
+// const indexOfFirstPost = indexOfLastPost - postPerPage;
+// const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
 // 데이터 추가하기
 const addPostDB = (title, author, comment) => {
@@ -122,7 +146,7 @@ const editPostDB = (title, post_id, comment) => {
     })
       .then((res) => {
       window.alert(res.data.msg)
-        window.location.replace('/') // 콜백함수
+        window.location.replace('/')
         // let post_id = [...res.data];
         // dispatch(editPost(post_id));
       })
@@ -174,8 +198,12 @@ export default handleActions(
         (val) => val.objid === action.payload.post_id
       );
       draft.list[idx] = {...draft.list[idx], ...action.payload.post};
-
-    })
+    }),
+    //  무한 스크롤
+  //   [LOADING]: (state, action) => 
+  //   produce(state, (draft) => {
+  //     draft.is_loading = action.payload.is_loading;
+  //   })
   },
   initialState
 );
